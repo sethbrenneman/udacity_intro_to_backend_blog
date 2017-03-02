@@ -1,0 +1,35 @@
+{%extends "base.html" %}
+
+{% block content %}
+
+<main class="container">
+  {%if username == comment.username %}
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Edit Comment</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <form method="post">
+          <textarea name="comment">{{comment.comment}}</textarea>
+          <br>
+          <p class="error">{{error}}</p>
+          <a href="{{url}}/delete/{{comment.post_id}}/{{comment.key().id()}}">delete comment</a>
+          <input type="submit">
+        </form>
+      </div>
+    </div>
+
+  {% else %}
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Only {{comment.username}} has permission to edit this comment</h3>
+      </div>
+    </div>
+
+  {% endif %}
+
+</main>
+{% endblock %}

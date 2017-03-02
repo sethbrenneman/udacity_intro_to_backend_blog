@@ -1,0 +1,48 @@
+body {
+  max-width: 800px;
+}
+
+td {
+  vertical-align: top;
+  padding-right: 10px;
+  max-width: 800px;
+  word-wrap: break-word;
+}
+
+textarea {
+  width: 600px;
+  height: 250px;
+}
+
+.error {
+  color: red;
+}
+
+.vote {
+  font-size: 48px;
+}
+
+.up {
+  color: green;
+}
+
+.down {
+  color: red;
+}
+
+a.vote:hover {
+  text-decoration: none;
+}
+
+.timestamp {
+  font-style: italic;
+  font-size: 10px;
+}
+
+.content {
+  font-family: monospace;
+}
+
+.subject {
+  color: #CCC;
+}

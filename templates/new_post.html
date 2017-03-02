@@ -1,0 +1,49 @@
+{%extends "base.html" %}
+
+{% block content %}
+
+<main class="container">
+{% if logged_in %}
+  <div class="row">
+    <div class="col-md-12">
+      <h1>New Post</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <form method="post">
+        <table>
+          <tr>
+            <td>Subject</td>
+            <td>
+              <input type="text" name="subject" value="{{subject}}">
+            </td>
+            <td class="error"></td>
+          </tr>
+          <tr>
+            <td>Content</td>
+            <td>
+              <textarea name="content">{{content}}</textarea>
+            </td>
+            <td class="error">{{error}}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><input type="submit"></td>
+            <td></td>
+        </table>
+      </form>
+    </div>
+  </div>
+{% else %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="error">
+      YOU MUST BE LOGGED IN TO MAKE A NEW POST
+    </div>
+  </div>
+</div>
+{% endif %}
+</main>
+
+{% endblock %}

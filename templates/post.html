@@ -1,0 +1,97 @@
+{%extends "base.html" %}
+
+{% block content %}
+
+<main class="container">
+  {% if username == post.username %}
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Edit Post</h1><a href="{{url}}/">cancel edit</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <form method="post">
+        <table>
+          <tr>
+            <td class="subject">Subject</td>
+            <td>
+              <input type="text" name="subject" value="{{post.subject}}">
+            </td>
+            <td class="error"></td>
+          </tr>
+          <tr>
+            <td class="content">Content</td>
+            <td>
+              <textarea name="content">{{post.content.replace('<br>', '\n')}}</textarea>
+            </td>
+            <td class="error">{{error}}</td>
+          </tr>
+          <tr>
+            <td><a href="{{url}}/delete/{{post.key().id()}}">delete post</a></td>
+            <td><input type="submit"></td>
+            <td></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
+
+  {% else %}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="subject">
+        {{post.subject}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <p class="content">{{post.content | safe}}</p>
+      <p class="timestamp">
+        Posted by {{post.username}} on {{post.created.strftime('%b %d %Y at %X')}}
+      </p>
+      <p class="timestamp">Last edited: {{post.last_modified.strftime('%b %d %Y at %X')}}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Add a comment</h3>
+      <form method="post">
+        <textarea name="comment"></textarea>
+        <br>
+        <p class="error">{{error}}</p>
+        <input type="submit">
+      </form>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Comments:</h3>
+    </div>
+  </div>
+  {% for c in comments %}
+  <div class="row">
+    <div class="col-md-12">
+      {{c.comment}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <p>
+        {{c.username}} on {{c.last_modified.strftime('%b %d %Y at %X')}}
+        {% if username == c.username %}
+          <a href="{{url}}/{{c.post_id}}/{{c.key().id()}}">Edit</a>
+        {% endif %}
+      </p>
+    </div>
+  </div>
+  {% endfor %}
+
+</main>
+
+{% endblock %}

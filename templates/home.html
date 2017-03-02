@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>BLOG</h1>
+      {% for p in posts %}
+        {% set is_liked = [] %}
+        {% for l in likes %}
+          {% if p.key().id()|int() == l.post_id|int() %}
+            {% do is_liked.append(1) %}
+          {% endif %}
+        {% endfor %}
+        <div class="row">
+          <div class="col-md-12">
+            <table>
+              <tr>
+                {% if is_liked and logged_in %}
+                <td class="up">You have liked this post</td>
+                {% elif logged_in and username != p.username %}
+                <td><a class="vote up" href="{{url}}/vote/{{p.key().id() | string}}">&#8593;</a></td>
+                {% else %}
+                <td></td>
+                {% endif %}
+                <td class="subject">{{p.subject}}</td>
+              </tr>
+              <tr>
+                {% if not logged_in or not is_liked %}
+                <td></td>
+                {% else %}
+                <td><a class="vote down" href="{{url}}/vote/{{p.key().id() | string}}">&#8595;</a></td>
+                {% endif %}
+                <td class="content">{{p.content | safe}}</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td class="timestamp">
+                  Posted by {{p.username}} on {{p.created.strftime('%b %d %Y at %X')}}
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td class="timestamp">
+                  Last edited: {{p.last_modified.strftime('%b %d %Y at %X')}}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        {% if username == p.username %}
+          <div class="row">
+            <div class="col-md-12">
+              <a href="{{url}}/{{p.key().id() | string}}">Edit</a>
+            </div>
+          </div>
+
+        {% else %}
+          <div class="row">
+            <div class="col-md-12">
+              <a href="{{url}}/{{p.key().id() | string}}">View</a>
+            </div>
+          </div>
+
+        {% endif %}
+
+        <div class="row">
+          <div class="col-md-12">
+            <hr>
+          </div>
+        </div>
+
+<!--         <div class="row">
+          <div class="col-md-12">
+            <p>{{p.content | safe}}</p>
+            <p class="created-modified">
+              Posted by {{p.username}} on {{p.created.strftime('%b %d %Y at %X')}}
+            </p>
+            <p class="created-modified">Last edited: {{p.last_modified.strftime('%b %d %Y at %X')}}</p>
+          </div>
+        </div>
+
+        {% if username == p.username %}
+          <div class="row">
+            <div class="col-md-12">
+              <a href="{{url}}/{{p.key().id() | string}}">Edit</a>
+            </div>
+          </div>
+
+        {% else %}
+          <div class="row">
+            <div class="col-md-12">
+              <a href="{{url}}/{{p.key().id() | string}}">View</a>
+            </div>
+          </div>
+
+        {% endif %}
+
+        <div class="row">
+          <div class="col-md-12">
+            <hr>
+          </div>
+        </div> -->
+
+      {% endfor %}
+    </div>
+  </div>
+</main>
+
+{% endblock %}
