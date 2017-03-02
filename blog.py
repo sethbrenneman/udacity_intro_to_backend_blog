@@ -10,7 +10,10 @@ import string
 from google.appengine.ext import db
 
 logged_in = False
-url = 'http://seths-udacity-project.appspot.com'
+
+# IMPORTANT!  If deploying this app to Google's appspot
+#             you must change the url string to your url
+url = 'http://localhost:8080'
 
 # Setting up jinja2
 
@@ -30,6 +33,8 @@ VALID_PASSWORD = re.compile(r'^[^|]{3,20}$')
 VALID_EMAIL = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
 
 
+# In user's posts, substitutes <br> in for newline characters so the
+# html can render properly
 def br_substitution(content):
   return content.replace('\n', '<br>')
 
@@ -106,6 +111,8 @@ class Handler(webapp2.RequestHandler):
   def render_str(self, template, **params):
     return render_str(template, **params)
 
+# Each call of render always passes 3 keyword arguments to jinja2:
+# url (str), logged_in(boolean), and username (str)
   def render(self, template, **params):
     params['url'] = url
     params['logged_in'] = self.login_status()

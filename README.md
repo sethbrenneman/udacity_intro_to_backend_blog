@@ -38,7 +38,7 @@ Alternatively, if you have a Google Cloud account, you can have Google's appclou
 from the app.yaml's directory
 
 **IMPORTANT!**
-In order for links in the .html pages to correctly render, it is necessary to set the variable 'url' in blog.py (line 13)
+In order for links in the .html pages to correctly render, it is necessary to set the variable 'url' in blog.py (line 16)
 
 by default it is set to
 
