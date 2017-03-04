@@ -6,12 +6,7 @@
     <div class="col-md-12">
       <h1>BLOG</h1>
       {% for p in posts %}
-        {% set is_liked = [] %}
-        {% for l in likes %}
-          {% if p.key().id()|int() == l.post_id|int() %}
-            {% do is_liked.append(1) %}
-          {% endif %}
-        {% endfor %}
+        {% set is_liked = p.likes.filter("username = ", username).get() %}
         <div class="row">
           <div class="col-md-12">
             <table>
@@ -70,39 +65,6 @@
             <hr>
           </div>
         </div>
-
-<!--         <div class="row">
-          <div class="col-md-12">
-            <p>{{p.content | safe}}</p>
-            <p class="created-modified">
-              Posted by {{p.username}} on {{p.created.strftime('%b %d %Y at %X')}}
-            </p>
-            <p class="created-modified">Last edited: {{p.last_modified.strftime('%b %d %Y at %X')}}</p>
-          </div>
-        </div>
-
-        {% if username == p.username %}
-          <div class="row">
-            <div class="col-md-12">
-              <a href="{{url}}/{{p.key().id() | string}}">Edit</a>
-            </div>
-          </div>
-
-        {% else %}
-          <div class="row">
-            <div class="col-md-12">
-              <a href="{{url}}/{{p.key().id() | string}}">View</a>
-            </div>
-          </div>
-
-        {% endif %}
-
-        <div class="row">
-          <div class="col-md-12">
-            <hr>
-          </div>
-        </div> -->
-
       {% endfor %}
     </div>
   </div>
