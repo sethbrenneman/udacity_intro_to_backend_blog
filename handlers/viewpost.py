@@ -46,22 +46,6 @@ class ViewPost(Handler):
 
                 self.render("post.html", post=post, error=error)
 
-        elif not username:
-            error = 'You must be logged in to comment'
-            self.render("post.html", post=post, error=error)
-
-        # If the user is not the owner of the post, the post method from the form
-        # will be making a comment
+        # If the user is not the owner of the post, redirect them to /login
         else:
-            comment = self.request.get('comment')
-            if not comment:
-                error = 'You must enter a comment'
-                post = Post.get_by_id(int(post_id))
-                comments = db.GqlQuery(("SELECT * FROM Comment WHERE post='%s'"
-                                        "ORDER BY created ASC" % post_id))
-                self.render('post.html', post=post, error=error)
-            else:
-                c = Comment(username=self.get_username(), post=post,
-                            comment=self.br_substitution(comment))
-                c.put()
-                self.redirect('/%s' % post_id)
+            self.redirect('/login')
