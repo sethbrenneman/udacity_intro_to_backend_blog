@@ -7,6 +7,7 @@ from handlers.welcome import Welcome
 from handlers.login import Login
 from handlers.logout import Logout
 from handlers.viewpost import ViewPost
+from handlers.comment import CommentHandler
 from handlers.editcomment import EditComment
 from handlers.votehandler import VoteHandler
 from handlers.deletepost import DeletePost
@@ -20,6 +21,7 @@ app = webapp2.WSGIApplication([('/', FrontPage),
                                ('/login', Login),
                                ('/logout', Logout),
                                ('/([0-9]+)', ViewPost),
+                               ('/comment/([0-9]+)', CommentHandler),
                                ('/([0-9]+)/([0-9]+)', EditComment),
                                ('/vote/([0-9]+)', VoteHandler),
                                ('/delete/([0-9]+)', DeletePost),
