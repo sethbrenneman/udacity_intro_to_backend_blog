@@ -59,7 +59,7 @@
   <div class="row">
     <div class="col-md-12">
       <h3>Add a comment</h3>
-      <form method="post">
+      <form method="post" action="{{url}}/comment/{{post.key().id()}}">
         <textarea name="comment"></textarea>
         <br>
         <p class="error">{{error}}</p>
